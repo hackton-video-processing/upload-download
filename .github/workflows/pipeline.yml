@@ -49,7 +49,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v3
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_ACCESS_SECRET }}
           aws-region: ${{ secrets.AWS_REGION }}
 
       # Step 3: Criar repositório ECS caso não exista
@@ -99,7 +99,7 @@ jobs:
           
             # Configurar credenciais manualmente
             aws configure set aws_access_key_id "${{ secrets.AWS_ACCESS_KEY_ID }}"
-            aws configure set aws_secret_access_key "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+            aws configure set aws_secret_access_key "${{ secrets.AWS_ACCESS_SECRET }}"
             aws configure set region "${{ secrets.AWS_REGION }}"
           
             # Fazer login no ECR
