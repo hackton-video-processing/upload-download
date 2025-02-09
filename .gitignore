@@ -1,0 +1,11 @@
+# Default ignored files
+/shelf/
+/.idea/workspace.xml
+app.env
+.idea/aws.xml
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/jarRepositories.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/workspace.xml
