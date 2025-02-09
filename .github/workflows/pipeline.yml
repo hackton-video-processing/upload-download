@@ -127,7 +127,5 @@ jobs:
             -e CLIENT_USER_URL="${{ secrets.CLIENT_USER_URL }}" \
             -e MAX_FILE_SIZE_IN_MB_UPLOAD="${{ secrets.MAX_FILE_SIZE_IN_MB_UPLOAD }}" \
             -e MAX_DURATION_IN_SECONDS_VIDEO="${{ secrets.MAX_DURATION_IN_SECONDS_VIDEO }}" \
-
-            -p 80:${{ secrets.PORT }} \
             ${{ secrets.ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest
           EOF
