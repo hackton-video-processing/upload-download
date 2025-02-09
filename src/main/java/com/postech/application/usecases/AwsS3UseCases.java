@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Slf4j
@@ -34,7 +33,7 @@ public class AwsS3UseCases {
         List<File> convFiles = new ArrayList<>();
 
         files.forEach(file -> {
-            var convFile = new File(Objects.requireNonNull(file.getOriginalFilename()));
+            var convFile = new File(UUID.randomUUID().toString());
             try (FileOutputStream fos = new FileOutputStream(convFile)) {
                 fos.write(file.getBytes());
             } catch (Exception e) {

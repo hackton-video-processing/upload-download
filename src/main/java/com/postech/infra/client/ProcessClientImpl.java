@@ -55,11 +55,10 @@ public class ProcessClientImpl implements ProcessClient {
 
     @Override
     public Optional<Process> consultProcess(String processId) {
-
         return WebClient.builder()
                 .baseUrl(urlProcessClient).build()
                 .get()
-                .uri("/{processId}", processId)
+                .uri("/process/{processId}", processId)
                 .retrieve()
                 .onStatus(HttpStatusCode::isError, clientResponse -> Mono.empty())
                 .bodyToMono(Process.class)

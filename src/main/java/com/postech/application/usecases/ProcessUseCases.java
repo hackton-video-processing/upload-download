@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -50,10 +49,9 @@ public class ProcessUseCases {
         var fileDtoList = new ArrayList<FileDTO>();
         var fileNameList = new ArrayList<String>();
         fileList.forEach(file -> {
-            var fileId = UUID.randomUUID().toString();
-            fileNameList.add(fileId);
+            fileNameList.add(file.getName());
             fileDtoList.add(FileDTO.builder()
-                    .id(fileId)
+                    .id(file.getName())
                     .name(file.getName()).build());
         });
 
