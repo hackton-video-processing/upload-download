@@ -1,6 +1,6 @@
 # Tech Challenge - Sistema de Produção do Pedido
 
-O sistema tem como intuito fornecer o processo de operacionalização da produção de um pedido, oferecendo as funcionalidade de iniciar e finalizar o preparo de um pedido.
+O sistema tem como intuito orquestrar as chamadas do upload, processamento e download de um video.
 
 ## Integrantes do Grupo
 - RM354032 - Alysson Gustavo Rodrigues Maciel
@@ -8,61 +8,70 @@ O sistema tem como intuito fornecer o processo de operacionalização da produç
 - RM354090 - Lucas Pugliese de Morais Barros
 - RM353273 - Felipe Pinheiro Dantas
 
-## Event Storming do Projeto
-```url
-https://miro.com/app/board/uXjVKSt4Gq8=/?share_link_id=968579577663
-```
-
 ## Para acessar o swagger e realizar os testes
 Rota para acessar Swagger
 ```url
-http://localhost:8080/producao/v1/swagger-ui
+http://localhost:8080/upload-download/v1/process
 ```
 Rota para acessar Swagger.yml
 ```url
-http://localhost:8080/producao/v1/api-docs
+http://localhost:8080/upload-download/v1/api-docs
 ```
 Dentro do Projeto no diretório "postman" há um arquivo com uma collection postman com todas as rotas mapeadas para teste
 ```
-./postman/Postech 4 - Sistema de Produção.postman_collection.json
+./postman/Sistema de Upload-Download.postman_collection.json
 ```
 
-## Iniciar preparo do pedido
+## Fazer upload do video e iniciar processamento
 
-Para criar iniciar ou finalizar o preparo de um pedido deve ser informado apenas o "id do pedido" em uma requisição sem body.
+Para fazer o upload e iniciar o processamento, deve-se chamar o endpoint a seguir informando o header "token" (token jwt do usuário cadastrado), e os videos enviados no body no padrão "form-data", a key deve ser "files", e selecionar de 1 a 3 videos com no máximo 100 megas por vídeo.
 
 ```url
-POST http://localhost:8080/producao/v1/preparar/{idPedido}
+POST http://localhost:8080/upload-download/v1/process
+    
+    Body: form-data
+    key: files
+    value: selecione os vídeos
+
 ```
 
-O retorno do inicio de preparação do pedido com sucesso será:
+O retorno do processamento será:
 
 ```url
 {
-    "id": 1,
-    "idPedido": 56,
-    "status": "PREPARANDO",
-    "inicioPreparo": "2024-11-27T15:23:46.2834791"
+    "id": "b3ce2f4a-ac52-4b7d-aaa8-9b7e01690100",
+    "files": [
+        {
+            "id": "a95a5f60-7423-4134-80bc-df870a320770",
+            "name": "video-exemplo.mp4"
+        }
+    ],
+    "status": "REQUESTED",
+    "created_at": "2025-02-09T01:13:55.758461900"
 }
 ```
 
-## Finalizar preparo do pedido
+## Buscar processamento de vídeo
 
-Quando o preparo do pedido for finalizado deve-se acionar o mesmo endpoint com os mesmos parâmetros porém com o método Patch para realizar a finalização.
+Quando o processamento for enviado, será retornado um id do processamento, nessa chamada será necessário o id e o token jwt.
 
 ```url
-PATCH http://localhost:8080/producao/v1/preparar/{idPedido}
+GET http://localhost:8080/upload-download/v1/process/{processId}
 ```
 
-O retorno do finalização do preparo do pedido com sucesso será:
+O retorno da consulta de processamento será:
 
 ```url
 {
-    "id": 1,
-    "idPedido": 56,
-    "status": "PRONTO",
-    "inicioPreparo": "2024-11-27T15:23:46.283479",
-    "fimPreparo": "2024-11-27T15:23:57.3577887",
-    "tempoTotalPreparo": "00:00:11"
+    "id": "b3ce2f4a-ac52-4b7d-aaa8-9b7e01690100",
+    "files": [
+        {
+            "id": "a95a5f60-7423-4134-80bc-df870a320770",
+            "name": "HINO DOS DESBRAVADORES .mp4",
+            "link: "https://download-link.com"
+        }
+    ],
+    "status": "AVAILABLE",
+    "created_at": "2025-02-09T01:13:55.758461900"
 }
 ```

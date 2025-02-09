@@ -11,5 +11,6 @@ public class FileDTO {
 
     private String id;
     private String name;
+    private String link;
 
 }
