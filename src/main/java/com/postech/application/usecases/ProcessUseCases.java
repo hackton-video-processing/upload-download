@@ -51,7 +51,6 @@ public class ProcessUseCases {
         fileList.forEach(file -> {
             fileNameList.add(file.getName());
             fileDtoList.add(FileDTO.builder()
-                    .id(file.getName())
                     .name(file.getName()).build());
         });
 
@@ -106,9 +105,9 @@ public class ProcessUseCases {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            if (!isValidDuration(file)) {
-                throw new ProcessException(ProcessErrorEnum.INVALID_FILE_DURATION);
-            }
+//            if (!isValidDuration(file)) {
+//                throw new ProcessException(ProcessErrorEnum.INVALID_FILE_DURATION);
+//            }
         });
     }
 
