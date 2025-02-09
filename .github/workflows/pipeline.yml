@@ -76,58 +76,58 @@ jobs:
         run: |
           docker push ${{ secrets.ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest
 
-#      # Step 7: Fazer deploy na EC2
-#      - name: Configurar SSH e Deploy na EC2
-#        run: |
-#          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > private_key.pem
-#          chmod 600 private_key.pem
-#
-#          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-#
-#            # Instalar Docker caso não esteja presente
-#            sudo yum install docker -y
-#            sudo systemctl start docker
-#            sudo systemctl enable docker
-#
-#             # Instalar AWS CLI, se necessário
-#            if ! command -v aws &> /dev/null; then
-#              sudo yum install -y aws-cli
-#            fi
-#
-#            # Adicionar o usuário ao grupo Docker (requer logout/login para surtir efeito)
-#            sudo usermod -aG docker $USER
-#
-#            newgrp docker
-#
-#            # Configurar credenciais manualmente
-#            aws configure set aws_access_key_id "${{ secrets.AWS_ACCESS_KEY_ID }}"
-#            aws configure set aws_secret_access_key "${{ secrets.AWS_ACCESS_SECRET }}"
-#            aws configure set region "${{ secrets.AWS_REGION }}"
-#
-#            # Fazer login no ECR
-#            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ACCOUNT_ID  }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
-#
-#            # Parar e remover containers antigos
-#           docker ps -q --filter "name=meu-container" | grep -q . && docker stop meu-container && docker rm meu-container || echo "Container não encontrado."
-#
-#            # Fazer pull da imagem do ECR
-#           docker pull ${{ secrets.ACCOUNT_ID  }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest
-#
-#            # Executar novo container com variáveis passadas diretamente
-#           docker run -d --name meu-container \
-#            -e PORT="${{ secrets.PORT }}" \
-#            -e AWS_S3_PATH_NAME="${{ secrets.AWS_S3_PATH_NAME }}" \
-#            -e AWS_S3_BUCKET="${{ secrets.AWS_S3_BUCKET }}" \
-#            -e AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}" \
-#            -e AWS_ACCESS_SECRET="${{ secrets.AWS_ACCESS_SECRET }}" \
-#            -e AWS_REGION="${{ secrets.AWS_REGION }}" \
-#            -e AWS_MSK_BROKERS="${{ secrets.AWS_MSK_BROKERS }}" \
-#            -e AWS_MSK_TOPIC_NAME="${{ secrets.AWS_MSK_TOPIC_NAME }}" \
-#            -e CLIENT_PROCESS_URL="${{ secrets.CLIENT_PROCESS_URL }}" \
-#            -e CLIENT_USER_URL="${{ secrets.CLIENT_USER_URL }}" \
-#            -e MAX_FILE_SIZE_IN_MB_UPLOAD="${{ secrets.MAX_FILE_SIZE_IN_MB_UPLOAD }}" \
-#            -e MAX_DURATION_IN_SECONDS_VIDEO="${{ secrets.MAX_DURATION_IN_SECONDS_VIDEO }}" \
-#
-#            -p 80:${{ secrets.PORT }} \
-#            ${{ secrets.ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest
-#          EOF
+      # Step 7: Fazer deploy na EC2
+      - name: Configurar SSH e Deploy na EC2
+        run: |
+          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+
+            # Instalar Docker caso não esteja presente
+            sudo yum install docker -y
+            sudo systemctl start docker
+            sudo systemctl enable docker
+
+             # Instalar AWS CLI, se necessário
+            if ! command -v aws &> /dev/null; then
+              sudo yum install -y aws-cli
+            fi
+
+            # Adicionar o usuário ao grupo Docker (requer logout/login para surtir efeito)
+            sudo usermod -aG docker $USER
+
+            newgrp docker
+
+            # Configurar credenciais manualmente
+            aws configure set aws_access_key_id "${{ secrets.AWS_ACCESS_KEY_ID }}"
+            aws configure set aws_secret_access_key "${{ secrets.AWS_ACCESS_SECRET }}"
+            aws configure set region "${{ secrets.AWS_REGION }}"
+
+            # Fazer login no ECR
+            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ACCOUNT_ID  }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+
+            # Parar e remover containers antigos
+           docker ps -q --filter "name=meu-container" | grep -q . && docker stop meu-container && docker rm meu-container || echo "Container não encontrado."
+
+            # Fazer pull da imagem do ECR
+           docker pull ${{ secrets.ACCOUNT_ID  }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest
+
+            # Executar novo container com variáveis passadas diretamente
+           docker run -d --name meu-container \
+            -e PORT="${{ secrets.PORT }}" \
+            -e AWS_S3_PATH_NAME="${{ secrets.AWS_S3_PATH_NAME }}" \
+            -e AWS_S3_BUCKET="${{ secrets.AWS_S3_BUCKET }}" \
+            -e AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}" \
+            -e AWS_ACCESS_SECRET="${{ secrets.AWS_ACCESS_SECRET }}" \
+            -e AWS_REGION="${{ secrets.AWS_REGION }}" \
+            -e AWS_MSK_BROKERS="${{ secrets.AWS_MSK_BROKERS }}" \
+            -e AWS_MSK_TOPIC_NAME="${{ secrets.AWS_MSK_TOPIC_NAME }}" \
+            -e CLIENT_PROCESS_URL="${{ secrets.CLIENT_PROCESS_URL }}" \
+            -e CLIENT_USER_URL="${{ secrets.CLIENT_USER_URL }}" \
+            -e MAX_FILE_SIZE_IN_MB_UPLOAD="${{ secrets.MAX_FILE_SIZE_IN_MB_UPLOAD }}" \
+            -e MAX_DURATION_IN_SECONDS_VIDEO="${{ secrets.MAX_DURATION_IN_SECONDS_VIDEO }}" \
+
+            -p 80:${{ secrets.PORT }} \
+            ${{ secrets.ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest
+          EOF
