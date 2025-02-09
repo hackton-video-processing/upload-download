@@ -10,4 +10,4 @@ app.env
 .idea/vcs.xml
 .idea/workspace.xml
 
-target/
+target/*
