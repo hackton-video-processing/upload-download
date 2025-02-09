@@ -11,9 +11,6 @@ import com.postech.domain.exceptions.ProcessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tika.Tika;
-import org.bytedeco.ffmpeg.avformat.AVFormatContext;
-import org.bytedeco.ffmpeg.global.avformat;
-import org.bytedeco.javacpp.PointerPointer;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -122,27 +119,27 @@ public class ProcessUseCases {
         return mimeType.startsWith("video/");
     }
 
-    public boolean isValidDuration(File file) {
-        AVFormatContext formatContext = avformat.avformat_alloc_context();
-        try {
-            if (avformat.avformat_open_input(formatContext, file.getAbsolutePath(), null, null) != 0) {
-                return false;
-            }
-
-            if (avformat.avformat_find_stream_info(formatContext, (PointerPointer) null) < 0) {
-                return false;
-            }
-
-            long durationMicroseconds = formatContext.duration();
-            long durationSeconds = durationMicroseconds / 1_000_000;
-
-            return durationSeconds <= videoMaxDurationSeconds;
-        } finally {
-            if (formatContext != null) {
-                avformat.avformat_close_input(formatContext);
-                avformat.avformat_free_context(formatContext);
-            }
-        }
-    }
+//    public boolean isValidDuration(File file) {
+//        AVFormatContext formatContext = avformat.avformat_alloc_context();
+//        try {
+//            if (avformat.avformat_open_input(formatContext, file.getAbsolutePath(), null, null) != 0) {
+//                return false;
+//            }
+//
+//            if (avformat.avformat_find_stream_info(formatContext, (PointerPointer) null) < 0) {
+//                return false;
+//            }
+//
+//            long durationMicroseconds = formatContext.duration();
+//            long durationSeconds = durationMicroseconds / 1_000_000;
+//
+//            return durationSeconds <= videoMaxDurationSeconds;
+//        } finally {
+//            if (formatContext != null) {
+//                avformat.avformat_close_input(formatContext);
+//                avformat.avformat_free_context(formatContext);
+//            }
+//        }
+//    }
 
 }
