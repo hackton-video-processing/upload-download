@@ -1,0 +1,269 @@
+{
+	"info": {
+		"_postman_id": "34fd5b84-d043-40ed-8f43-c5eec1770c7e",
+		"name": "Video Process - Hackaton",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22525842"
+	},
+	"item": [
+		{
+			"name": "Process API",
+			"item": [
+				{
+					"name": "Create Process",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"files\": [\r\n        \"teste1.mpa\",\r\n        \"teste2.mp4\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://video-processing-api-balancer-1232128618.us-east-1.elb.amazonaws.com/api/process",
+							"protocol": "http",
+							"host": [
+								"video-processing-api-balancer-1232128618",
+								"us-east-1",
+								"elb",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"api",
+								"process"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Process",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"files\": [\r\n        \"teste1\",\r\n        \"teste2\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://video-processing-api-balancer-1232128618.us-east-1.elb.amazonaws.com/api/process/d9d2751c-3182-4b5d-acbc-c194972b004b",
+							"protocol": "http",
+							"host": [
+								"video-processing-api-balancer-1232128618",
+								"us-east-1",
+								"elb",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"api",
+								"process",
+								"d9d2751c-3182-4b5d-acbc-c194972b004b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User API",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"Felipe\",\r\n    \"lastname\": \"Test\",\r\n    \"cpf\": \"12345678902\",\r\n    \"email\": \"felipe@gmail.com\",\r\n    \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://52.23.164.113:80/api/v1/auth/register",
+							"protocol": "http",
+							"host": [
+								"52",
+								"23",
+								"164",
+								"113"
+							],
+							"port": "80",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"felipe@gmail.com\",\r\n    \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://52.23.164.113:80/api/v1/auth/authenticate",
+							"protocol": "http",
+							"host": [
+								"52",
+								"23",
+								"164",
+								"113"
+							],
+							"port": "80",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Token Validate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZWxpcGVAZ21haWwuY29tIiwiaWF0IjoxNzM5MDYxMzgxLCJleHAiOjE3MzkwNjI4MjF9.MJ35uB7FBLLDwtenf_OAJAzk19064fpKRdkC8v_gxLM\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://52.23.164.113:80/api/v1/auth/validate",
+							"protocol": "http",
+							"host": [
+								"52",
+								"23",
+								"164",
+								"113"
+							],
+							"port": "80",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Upload / Download API",
+			"item": [
+				{
+					"name": "Upload Video",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZWxpcGVAZ21haWwuY29tIiwiaWF0IjoxNzM5MTQzMjMxLCJleHAiOjE3MzkxNDQ2NzF9.b4epw0FxpU-ZVPzeMpXaKLLf557PhzDWb0vnUnVoYyY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/C:/Users/felip/OneDrive/Área de Trabalho/HINO DOS DESBRAVADORES .mp4"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://ec2-18-231-156-63.sa-east-1.compute.amazonaws.com/upload-download/v1/process",
+							"protocol": "http",
+							"host": [
+								"ec2-18-231-156-63",
+								"sa-east-1",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"upload-download",
+								"v1",
+								"process"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consult Process",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZWxpcGVAZ21haWwuY29tIiwiaWF0IjoxNzM5MTQzMjMxLCJleHAiOjE3MzkxNDQ2NzF9.b4epw0FxpU-ZVPzeMpXaKLLf557PhzDWb0vnUnVoYyY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://ec2-18-231-156-63.sa-east-1.compute.amazonaws.com/upload-download/v1/process/9572bed8-7f14-40f4-afbe-dbee5d171849",
+							"protocol": "http",
+							"host": [
+								"ec2-18-231-156-63",
+								"sa-east-1",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"upload-download",
+								"v1",
+								"process",
+								"9572bed8-7f14-40f4-afbe-dbee5d171849"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
