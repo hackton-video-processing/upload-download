@@ -51,7 +51,6 @@ public class ProcessUseCases {
         fileList.forEach(file -> {
             fileNameList.add(file.getName());
             fileDtoList.add(FileDTO.builder()
-                    .id(file.getName())
                     .name(file.getName()).build());
         });
 
