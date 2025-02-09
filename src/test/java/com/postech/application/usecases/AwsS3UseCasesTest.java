@@ -29,17 +29,21 @@ class AwsS3UseCasesTest {
 
     @Test
     void shouldSaveFilesSuccessfully() {
-        List<File> files = List.of(new File("test-file.txt"));
+        var file = new File("test-file.txt");
+        List<File> files = List.of(file);
         String pathName = "uploads/";
         String s3BucketName = "my-bucket";
 
         assertDoesNotThrow(() -> awsS3UseCases.saveFiles(files, pathName, s3BucketName));
         verify(client, times(1)).saveS3Files(files, s3BucketName, pathName);
+
+        file.delete();
     }
 
     @Test
     void shouldThrowAwsExceptionWhenSaveFilesFails() {
-        List<File> files = List.of(new File("test-file.txt"));
+        var file = new File("test-file.txt");
+        List<File> files = List.of(file);
         String pathName = "uploads/";
         String s3BucketName = "my-bucket";
 
@@ -50,6 +54,8 @@ class AwsS3UseCasesTest {
         );
 
         assertEquals(AwsErrorEnum.S3_ERROR_SAVING, exception.getError());
+
+        file.delete();
     }
 
     @Test
