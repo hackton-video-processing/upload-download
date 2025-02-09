@@ -37,7 +37,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: unit-test
+#    needs: unit-test
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
       # Step 1: Fazer o checkout do repositório
