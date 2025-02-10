@@ -79,10 +79,10 @@ jobs:
       # Step 7: Fazer deploy na EC2
       - name: Configurar SSH e Deploy na EC2
         run: |
-          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > private_key.pem
-          chmod 600 private_key.pem
+          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > video-pair.pem
+          chmod 600 video-pair.pem
 
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i video-pair.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
 
             # Instalar Docker caso não esteja presente
             sudo yum install docker -y
