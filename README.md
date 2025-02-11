@@ -11,7 +11,7 @@ O sistema tem como intuito orquestrar as chamadas do upload, processamento e dow
 ## Para acessar o swagger e realizar os testes
 Rota para acessar Swagger
 ```url
-http://localhost:8080/upload-download/v1/process
+http://localhost:8080/upload-download/v1/swagger-ui
 ```
 Rota para acessar Swagger.yml
 ```url
@@ -42,7 +42,6 @@ O retorno do processamento será:
     "id": "b3ce2f4a-ac52-4b7d-aaa8-9b7e01690100",
     "files": [
         {
-            "id": "a95a5f60-7423-4134-80bc-df870a320770",
             "name": "video-exemplo.mp4"
         }
     ],
