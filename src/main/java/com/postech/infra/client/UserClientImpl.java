@@ -1,6 +1,5 @@
 package com.postech.infra.client;
 
-import com.google.gson.Gson;
 import com.postech.application.client.UserClient;
 import com.postech.infra.dto.request.TokenRequestDTO;
 import lombok.RequiredArgsConstructor;
